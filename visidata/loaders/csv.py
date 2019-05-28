@@ -9,7 +9,8 @@ replayableOption('csv_skipinitialspace', True, 'skipinitialspace passed to csv.r
 replayableOption('csv_escapechar', None, 'escapechar passed to csv.reader')
 replayableOption('safety_first', False, 'sanitize input/output to handle edge cases, with a performance cost')
 
-csv.field_size_limit(sys.maxsize)
+# Required to avoid OverflowError on 64-bit Windows. On windows, a C-long is always 32-bit.
+csv.field_size_limit(2**31-1 if sys.platform=='win32' else sys.maxsize)
 
 options_num_first_rows = 10
 

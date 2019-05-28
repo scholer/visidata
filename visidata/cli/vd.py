@@ -147,8 +147,13 @@ def main():
         saveSheets(args.output, vd().sheets[0], confirm_overwrite=False)
         sync()
 
-if __name__ == '__main__':
+
+def vd_cli():
     vdtui.status(__version_info__)
     main()
     sys.stderr.flush()
     os._exit(0)  # cleanup can be expensive with large datasets
+
+
+if __name__ == '__main__':
+    vd_cli()
